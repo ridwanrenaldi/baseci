@@ -39,7 +39,7 @@
 
       <div class="row mb-3">
         <div class="col-12">
-          <a href="https://github.com/L200160026/baseci>" target="_blank">
+          <a href="https://github.com/L200160026/baseci" target="_blank">
             <button type="button" class="btn btn-primary btn-block">
               <i class="fab fa-github-alt"></i>
               <span class="border-left" style="margin-right: 5px; margin-left: 5px;"></span>
