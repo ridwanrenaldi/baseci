@@ -67,7 +67,6 @@ class Category extends CI_Controller {
     $data['layout']     = 'layout-navbar-fixed  pace-warning';
     $data['title']      = 'Add Category';
     $data['card_title'] = 'Form Input';
-    $data['mode']       = $this->config->item('mode');
 
 
     $data['swal'] = array(
@@ -82,7 +81,7 @@ class Category extends CI_Controller {
 
     $this->form_validation->set_rules($this->M_Category->rules());
     if ($this->form_validation->run() === TRUE) {
-      $this->session->set_flashdata('notif', $this->M_Category->insert($this->config->item('mode')));
+      $this->session->set_flashdata('notif', $this->M_Category->insert());
       redirect(site_url('admin/category/add'),'refresh');
 
     } else {
@@ -107,7 +106,6 @@ class Category extends CI_Controller {
       $data['layout']     = 'layout-navbar-fixed  pace-warning';
       $data['title']      = 'Edit Category';
       $data['card_title'] = 'Form Input';
-      $data['mode']       = $this->config->item('mode');
   
   
       $data['swal'] = array(
@@ -126,7 +124,7 @@ class Category extends CI_Controller {
   
       $this->form_validation->set_rules($this->M_Category->rules());
       if ($this->form_validation->run() === TRUE) {
-        $this->session->set_flashdata('notif', $this->M_Category->update($id, $this->config->item('mode')));
+        $this->session->set_flashdata('notif', $this->M_Category->update($id));
         redirect(site_url('admin/category/edit/'.$id),'refresh');
   
       } else {

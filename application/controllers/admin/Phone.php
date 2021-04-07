@@ -68,7 +68,6 @@ class Phone extends CI_Controller {
     $data['layout']     = 'layout-navbar-fixed  pace-warning';
     $data['title']      = 'Add Phone';
     $data['card_title'] = 'Form Input';
-    $data['mode']       = $this->config->item('mode');
 
 
     $data['swal'] = array(
@@ -84,7 +83,7 @@ class Phone extends CI_Controller {
     $data['category'] = $this->M_Category->getAll();
     $this->form_validation->set_rules($this->M_Phone->rules());
     if ($this->form_validation->run() === TRUE) {
-      $this->session->set_flashdata('notif', $this->M_Phone->insert($this->config->item('mode')));
+      $this->session->set_flashdata('notif', $this->M_Phone->insert());
       redirect(site_url('admin/phone/add'),'refresh');
 
     } else {
@@ -109,7 +108,6 @@ class Phone extends CI_Controller {
       $data['layout']     = 'layout-navbar-fixed  pace-warning';
       $data['title']      = 'Edit Phone';
       $data['card_title'] = 'Form Input';
-      $data['mode']       = $this->config->item('mode');
   
   
       $data['swal'] = array(
@@ -128,7 +126,7 @@ class Phone extends CI_Controller {
       $data['category'] = $this->M_Category->getAll();
       $this->form_validation->set_rules($this->M_Phone->rules());
       if ($this->form_validation->run() === TRUE) {
-        $this->session->set_flashdata('notif', $this->M_Phone->update($id, $this->config->item('mode')));
+        $this->session->set_flashdata('notif', $this->M_Phone->update($id));
         redirect(site_url('admin/phone/edit/'.$id),'refresh');
   
       } else {
