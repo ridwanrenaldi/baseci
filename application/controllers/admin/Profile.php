@@ -119,6 +119,9 @@ class Profile extends CI_Controller {
       );
 
       $data['id'] = $data['data']['account_id'];
+      if (empty($data['data']['account_image'])) {
+        $data['data']['account_image'] = 'default.png';
+      }
       $this->form_validation->set_rules($this->M_Account->rules());
       if ($this->form_validation->run() === TRUE) {
         $this->session->set_flashdata('notif', $this->M_Account->update($data['id'], $this->config->item('mode')));
