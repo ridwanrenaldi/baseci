@@ -3,7 +3,7 @@
 <head>
   <?php $this->load->view('admin/partials/head.php') ?>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini <?php if(isset($layout)){echo $layout;} ?>">
 <div class="wrapper">
 
   <?php $this->load->view('admin/partials/navbar.php') ?>
