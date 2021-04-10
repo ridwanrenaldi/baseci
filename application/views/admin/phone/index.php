@@ -22,39 +22,23 @@
           <div class="card card-info">
             <?php $this->load->view('admin/partials/cardheader.php') ?>
 
-            <div class="card-body">
-              <?= form_open('admin/phone/index', array('class' => 'form-horizontal', 'id'=>'_filter_')) ?>
+            <div class="card-body pb-0">
                 <div class="row">
 
-                  <div class="col-5">
-                    <select name="_type_" id="_type_" class="form-control select2bs4">
-                      <option value="month" <?= set_select('_type_', 'month'); ?> selected>Month</option>
-                      <option value="year" <?= set_select('_type_', 'year'); ?>>Year</option>
-                      <option value="custom" <?= set_select('_type_', 'custom'); ?>>Custom</option>
-                    </select>
-                  </div>
-                  <div class="col-5">
-                    <div id="container_filter">
-                    
-                      <div class="form-group">
-                          <div class="input-group date" id="datetime_picker" data-target-input="nearest">
-                            <div class="input-group-prepend" data-target="#datetime_picker" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-                            </div>
-                            <input type="text" name="_date_" class="form-control datetimepicker-input" data-target="#datetime_picker" data-toggle="datetimepicker" readonly="readonly">
-                          </div>
+                  <div class="col-md-3">
+                    <div class="form-group mb-0">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="far fa-calendar-alt"></i>
+                          </span>
+                        </div>
+                        <input type="text" name="_date_" class="form-control" id="_date_" readonly="readonly">
                       </div>
-                      
                     </div>
                   </div>
 
-                  <div class="col-2">
-                    <button type="submit" class="btn btn-block btn-success"><i class="fas fa-search"></i> Filter</button>
-                  </div>
-
                 </div>
-              <?= form_close() ?>
-
             </div>
 
             <div class="card-body">
@@ -99,114 +83,46 @@
   var table;
   var title = '<?= $card_title ?>';
   var filename = '<?= $card_title ?>';
-  var columns = [0,1,2];
-
-  function initializeDatatable( r_columns, r_filters ) {
-    var markups = [{
-    "mRender": function( data, type, row ){     },"aTargets":[1] ,
-    }], resp = createDataTable("#tbl_qc", r_columns, r_filters );
-    resp.create( "/qc/list", "POST", markups );
-    resp.action()
-  }
+  var columns = [0,1,2,3,4];
 
   $(document).ready(function(){
 
-
-    // https://xdsoft.net/jqplugins/datetimepicker/
-    // https://getdatepicker.com/4/
-    $('#datetime_picker').datetimepicker({
-        format      : 'MM/YYYY',
-        viewMode    : 'months',
-        minViewMode : 'months',
-        defaultDate : {
-          year: '<?= date('Y') ?>',
-          month: '<?= date('m') - 1 ?>'
+    $('#_date_').daterangepicker({
+        startDate: moment(),
+        endDate: moment(),
+        showDropdowns: true,
+        locale: {
+          format: 'YYYY/MM/DD',
+          separator: ' - ',
+        },
+        ranges: {
+          'Today': [moment(), moment()],
+          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month': [moment().startOf('month'), moment().endOf('month')],
+          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+          'This Year' : [moment().startOf('years'), moment().endOf('years')],
+          'Last Year' : [moment().subtract(1, 'years').startOf('years'), moment().subtract(1, 'years').endOf('years')],
         }
     });
-    $('#datetime_picker').keydown(function(event) {
-        return false;
-    });
 
-    $('#_type_').on('change', function(){
-      var type = $(this).val();
-      var datetimepicker = '<div class="form-group">\
-                      <div class="input-group date" id="datetime_picker" data-target-input="nearest">\
-                        <div class="input-group-prepend" data-target="#datetime_picker" data-toggle="datetimepicker">\
-                            <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>\
-                        </div>\
-                        <input type="text" name="_date_" class="form-control datetimepicker-input" data-target="#datetime_picker" data-toggle="datetimepicker" readonly="readonly">\
-                      </div>\
-                  </div>';
-
-      var daterangepicker = '<div class="form-group">\
-                    <div class="input-group">\
-                      <div class="input-group-prepend">\
-                        <span class="input-group-text">\
-                          <i class="far fa-calendar-alt"></i>\
-                        </span>\
-                      </div>\
-                      <input type="text" name="_date_" class="form-control float-right" id="datetime_picker" readonly="readonly">\
-                    </div>\
-                  </div>';
-
-
-      if (type == 'month') {
-        $('#container_filter').html(datetimepicker);
-        $('#datetime_picker').datetimepicker({
-            format      : 'MM/YYYY',
-            viewMode    : 'months',
-            minViewMode : 'months',
-            defaultDate : {
-              year: '<?= date('Y') ?>',
-              month: '<?= date('m') - 1 ?>'
-            }
-        });
-      } else if(type == 'year'){
-        $('#container_filter').html(datetimepicker);
-        $('#datetime_picker').datetimepicker({
-            format      : 'YYYY',
-            viewMode    : 'years',
-            minViewMode : 'years',
-            defaultDate : {
-              year: '<?= date('Y') ?>'
-            }
-        });
-      } else if(type == 'custom') {
-        $('#container_filter').html(daterangepicker);
-        $('#datetime_picker').daterangepicker({
-          locale: {
-            format: 'YYYY/MM/DD',
-            separator: ' to '
-          }
-        });
-      }
-      $('#datetime_picker').keydown(function(event) {
-        return false;
-      });
-      
-    });
-    
-
-    $('#_filter_').submit(function( event ) {
-      event.preventDefault();
+    $('#_date_').on('change', function(){
       table.ajax.reload();
     });
 
-    
     table = $('#_table_').DataTable({
       ajax: {
         url: '<?= site_url('admin/phone/data')?>',
         type: 'POST',
         dataSrc: '',
-        data: function ( d ) {
-          var data = $('#_filter_').serializeArray();
-          d[data[0].name] = data[0].value;
-          d[data[1].name] = data[1].value;
-          d[data[2].name] = data[2].value;
+        data: function (d) {
+          d[csrfName] = csrfHash,
+          d.date      = $("#_date_").val()
         }
       },
       scrollX: true,
-      dom: '<"row"<"col-sm-12 col-md-3"l><"col-sm-12 col-md-6"B><"col-sm-12 col-md-3"f>>' +
+      dom:  '<"row"<"col-sm-12 col-md-3"l><"col-sm-12 col-md-6"B><"col-sm-12 col-md-3"f>>' +
             '<"row"<"col-sm-12"tr>>' +
             '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
       buttons: [

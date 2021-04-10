@@ -145,22 +145,12 @@ class Phone extends CI_Controller {
 
   public function data(){
     $post = $this->input->post();
-    if (isset($post['_type_']) && isset($post['_date_']) && !empty($post['_type_'])  && !empty($post['_date_']) && in_array($post['_type_'], array('month', 'year', 'custom'))) {
-      
-      if ($post['_type_'] == 'month') {
-        $date = explode('/', $post['_date_']);
-        $where = ' YEAR(phone_created) = "'.$date[1].'" AND MONTH(phone_created) = "'.$date[0].'"';
-      } elseif ($post['_type_'] == 'year'){
-        $where = ' YEAR(phone_created) = "'.$post['_date_'].'"';
-      } elseif ($post['_type_'] == 'custom'){
-        $date = explode(' to ', $post['_date_']);
-        $where = ' phone_created between "'.$date[0].'" and "'.$date[1].'"';
-      }
+    if (isset($post['date']) && !empty($post['date'])) {
+      $date = explode(' - ', $post['date']);
+      $where = 'phone_created >= "'.$date[0].' 00:00:00" and phone_created <= "'.$date[1].' 23:59:59"';
       $response = $this->M_Phone->getAll($where);
-      
     } else {
-      $where = ' YEAR(phone_created) = "'.date('Y').'" AND MONTH(phone_created) = "'.date('m').'"';
-      $response = $this->M_Phone->getAll($where);
+      $response = $this->M_Phone->getAll();
     }
     echo json_encode($response);
   }
