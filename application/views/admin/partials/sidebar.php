@@ -31,7 +31,10 @@
             </a>
           </li>
 
-          <?php $side_account = array('account-index','account-add') ?>
+          <?php 
+            $side_account = array('account-index','account-add');
+            if (in_array($session['level'], array('root'))) {
+          ?>
           <li class="nav-item <?php if(in_array($sidebar, $side_account)){echo 'menu-open';}?>">
             <a href="#" class="nav-link <?php if(in_array($sidebar, $side_account)){echo 'active';}?>">
               <i class="nav-icon fas fa fa-user-circle"></i>
@@ -55,6 +58,7 @@
               </li>
             </ul>
           </li>
+          <?php } ?>
 
           <?php $side_category = array('category-index','category-add') ?>
           <li class="nav-item <?php if(in_array($sidebar, $side_category)){echo 'menu-open';}?>">

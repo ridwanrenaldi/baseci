@@ -6,7 +6,7 @@ class Account extends CI_Controller {
 
   public function __construct(){
     parent::__construct();
-    $this->sess = $this->M_Auth->session(array('root','admin'));
+    $this->sess = $this->M_Auth->session(array('root'));
     if ($this->sess === FALSE) {
       redirect(site_url('admin/auth/logout'),'refresh');
     }
