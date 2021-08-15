@@ -219,7 +219,11 @@ class M_Auth extends CI_Model {
   }
 
   public function notification(){
-    $notif = array('status' => 'error', 'message' => str_replace("\n", '', validation_errors('<li>','</li>')));
+    $notif = array('status' => '', 'message' => '');
+    if (!empty(validation_errors())) {
+      $notif = array('status' => 'error', 'message' => str_replace("\n", '', validation_errors('<li>','</li>')));
+    }
+
     if ($this->session->flashdata('notif')) {
       $notif = $this->session->flashdata('notif');
     }
