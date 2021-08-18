@@ -3,10 +3,10 @@
   $(document).ready(function(){
     // ===== Notification alert =====
     var notif = {
-      status:"<?php if(isset($notif["status"])) { echo $notif["status"]; } ?>", 
-      message:"<?php if(isset($notif["message"])) { echo $notif["message"]; } ?>",
-      url:"<?php if(isset($swal['url'])) { echo $swal['url']; } ?>",
-      confirmbutton: "<?php if(isset($swal['button'])) { echo $swal['button']; } ?>",
+      status:"<?php if(isset($notif["status"]) && !empty($notif["status"])) { echo $notif["status"]; } ?>", 
+      message:"<?php if(isset($notif["message"]) && !empty($notif["message"])) { echo $notif["message"]; } ?>",
+      url:"<?php if(isset($swal['url']) && !empty($swal['url'])) { echo $swal['url']; } ?>",
+      confirmbutton: "<?php if(isset($swal['button']) && !empty($swal['button'])) { echo $swal['button']; } ?>",
     };
 
     if (notif.status == "error" && notif.message != "") {

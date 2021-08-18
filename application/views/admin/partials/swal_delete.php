@@ -7,7 +7,7 @@
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: "<?php if(isset($swal['button'])) { echo $swal['button']; } ?>"
+        confirmButtonText: "<?php if(isset($swal['button']) && !empty($swal['button'])) { echo $swal['button']; } ?>"
       }).then((result) => {
         if (result.value) {
           $.ajax({
