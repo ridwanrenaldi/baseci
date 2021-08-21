@@ -45,7 +45,7 @@
                   <div class="form-group row">
                     <label for="_email_" class="col-sm-3 col-form-label" style="text-align: right;">Email</label>
                     <div class="col-sm-6">
-                      <input type="text" name="_email_" class="form-control" id="_email_" placeholder="Email" value="<?php echo set_value('_email_'); ?>" required="required" minlength="4" maxlength="12">
+                      <input type="text" name="_email_" class="form-control" id="_email_" placeholder="Email" value="<?php echo set_value('_email_'); ?>" required="required" minlength="4" maxlength="100">
                     </div>
                   </div>
                   <?php } ?>

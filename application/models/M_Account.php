@@ -203,18 +203,19 @@ class M_Account extends CI_Model {
       
       if ($username == TRUE && $password == TRUE) {
 
-        $account = $this->getById($id);
-        if (!empty($data['account_image']) && $account['account_image'] != 'default.png') {
-          $oldpath = './uploads/account/'.$account['account_image'];
-          delete_file($oldpath);
-        }
-         
+        
         $uploadimg = upload_file('./uploads/account/','jpg|png|jpeg|');
-
+        
         if ($uploadimg['status'] == 'error') {
           $response = $uploadimg;
-
+          
         } else {
+          
+          $account = $this->getById($id);
+          if (!empty($data['account_image']) && $account['account_image'] != 'default.png') {
+            $oldpath = './uploads/account/'.$account['account_image'];
+            delete_file($oldpath);
+          }
           
           $data = array(
             'account_name'         => htmlspecialchars($post['_name_']),

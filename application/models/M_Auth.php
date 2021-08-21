@@ -68,7 +68,7 @@ class M_Auth extends CI_Model {
     if (isset($post['_level_'])) {
       $rules[] =  array( 'field' => '_level_',
                         'label' => 'Level',
-                        'rules' => 'required|trim|alpha|in_list[root,admin,store,reseller]');
+                        'rules' => 'required|trim|alpha|in_list[root,admin,user]');
     }
 
     if (isset($post['_address_'])) {
