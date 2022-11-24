@@ -4,7 +4,9 @@
     <a href="https://adminlte.io/" title="AdminLTE">
       <img src="assets/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE" width="200">
     </a>
-    <font size="6" style="font-weight:700; font-size:300px">+</font>
+    <a title="Plus">
+      <img src="assets/images/plussign.png" alt="Plus" width="200">
+    </a>
     <a href="https://www.codeigniter.com/" title="Codeigniter">
       <img src="assets/images/codeigniter.svg" alt="Codeigniter" width="165">
     </a>
